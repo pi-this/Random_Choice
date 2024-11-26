@@ -4,20 +4,27 @@
 //
 //  Created by Wesley Chastain on 11/25/24.
 //
+// Random Choice: Roll for Fun
+//
 
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack {
+            LinearGradient(colors: colorScheme == .light ? [.white, .brown, .white] : [.black, .brown, .black], startPoint: .topLeading, endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all)
+            
+            Die()
+                .foregroundColor(colorScheme == .light ? .accentColor : .black)
+            
         }
-        .padding()
+
+        .environmentObject(RotationViewModel())
     }
-}
+} 
 
 #Preview {
     ContentView()

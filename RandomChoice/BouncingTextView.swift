@@ -1,3 +1,11 @@
+//
+//  BouncingTextView.swift
+//  RandomChoice
+//
+//  Created by Wesley Chastain on 11/25/24.
+//
+
+
 import SwiftUI
 
 struct BouncingTextView: View {
@@ -23,18 +31,6 @@ struct BouncingTextView: View {
                         hideInstructions = true
                     }
                 }
-
-            Button(action: {
-                withAnimation {
-                    hideInstructions.toggle()
-                }
-            }) {
-                Text("Toggle Instructions")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
         }
         .padding()
     }

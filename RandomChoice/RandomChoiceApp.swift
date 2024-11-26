@@ -13,5 +13,6 @@ struct RandomChoiceApp: App {
         WindowGroup {
             ContentView()
         }
+        .environmentObject(RotationViewModel())
     }
 }
