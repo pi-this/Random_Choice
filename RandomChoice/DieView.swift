@@ -36,15 +36,16 @@ struct PointedBubble: Shape {
 }
 
 
-struct Die: View {
+struct DieView: View {
     @Environment(\.colorScheme) var colorScheme
     @State var number = 0
-    @EnvironmentObject var rotation: RotationViewModel
+    @State var rotation: Double = 0
     @State var swipeUp: Int = 0
     @State var numRotate = 0
     @State var hideInstructions: Bool = false
     @State private var shakes: CGFloat = 0
     @State var bounce = false
+    @EnvironmentObject var random: RotationViewModel
     
     var body: some View {
         VStack {
@@ -53,7 +54,7 @@ struct Die: View {
             if !hideInstructions {
                 Text("Tap to Roll")
                     .font(.title2)
-                    .foregroundColor(colorScheme == .dark ? .black : .white)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
                     .padding()
                     .offset(y: -10)
                     .frame(width: 140, height: 70)
@@ -84,8 +85,18 @@ struct Die: View {
 
                 VStack {
                     
-                    Image(systemName: number == 1 ? "die.face.1" : number == 2 ? "die.face.2" : number == 3 ? "die.face.3" : number == 4 ? "die.face.4" : number == 5 ? "die.face.5" : number == 6 ? "die.face.6" : "r.square")
-                        .font(.system(size: 100))
+                    if colorScheme == .light {
+                        Image(number == 1 ? "1l" : number == 2 ? "2l" : number == 3 ? "3l" : number == 4 ? "4l" : number == 5 ? "5l" : number == 6 ? "6l" : "?l")
+                            .resizable()
+                            .frame(width: 170, height: 150)
+                    }
+                    else {
+                        Image(number == 1 ? "1d" : number == 2 ? "2d" : number == 3 ? "3d" : number == 4 ? "4d" : number == 5 ? "5d" : number == 6 ? "6d" : "?d")
+                            .resizable()
+                            .frame(width: 150, height: 150)
+                    }
+                    
+                    
                 }
             }
             .onTapGesture {
@@ -100,15 +111,15 @@ struct Die: View {
                     withAnimation
                     {
                         number = Int.random(in: 1...6)
-                        rotation.rotation += Double(360*Double.random(in: 0.5...2))
+                        rotation += Double(360*Double.random(in: 0.5...2))
                         numRotate += 360*Int.random(in: 1...3)
                     }
                 }
             }
             .font(.largeTitle)
             .modifier(ShakeEffect(animatableData: shakes))
-            .rotationEffect(Angle(degrees: rotation.rotation))
-            .animation(.easeInOut(duration: 1), value: rotation.rotation)
+            .rotationEffect(Angle(degrees: rotation))
+            .animation(.easeInOut(duration: 1), value: rotation)
             .padding()
             
         }
@@ -117,6 +128,6 @@ struct Die: View {
 }
 
 #Preview {
-    Die()
+    DieView()
         .environmentObject(RotationViewModel())
 }
