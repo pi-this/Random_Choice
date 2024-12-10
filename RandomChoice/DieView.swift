@@ -54,7 +54,7 @@ struct DieView: View {
             if !hideInstructions {
                 Text("Tap to Roll")
                     .font(.title2)
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                    .foregroundColor(colorScheme == .dark ? .black : .white)
                     .padding()
                     .offset(y: -10)
                     .frame(width: 140, height: 70)
