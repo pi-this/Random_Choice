@@ -10,4 +10,5 @@ import SwiftUI
 import Combine
 class RotationViewModel: ObservableObject {
     @Published var rotation: Double = 0
+    @Published var amountOfDice = 1
 }
